@@ -11,6 +11,8 @@ const Theme = {
   DARK: 'dark-theme',
 };
 
+const THEME_KEY = 'theme';
+
 const themeRef = document.querySelector('#theme-switch-toggle');
 
 themeRef.addEventListener('change', onThemeChange);
@@ -21,7 +23,7 @@ function onThemeChange(e) {
   } else {
     replaceTheme(Theme.DARK, Theme.LIGHT);
   }
-  localStorage.setItem('theme', document.body.classList.value);
+  localStorage.setItem(THEME_KEY, document.body.classList.value);
 }
 
 function replaceTheme(oldTheme, newTheme) {
@@ -35,7 +37,7 @@ function replaceTheme(oldTheme, newTheme) {
 }
 
 function savedTheme() {
-  const savedTheme = localStorage.getItem('theme');
+  const savedTheme = localStorage.getItem(THEME_KEY);
   if (savedTheme) {
     document.body.classList.value = savedTheme;
 
