@@ -11,22 +11,27 @@ const Theme = {
   DARK: 'dark-theme',
 };
 
-// document.body.classList.add(Theme.LIGHT);
-
 const themeRef = document.querySelector('#theme-switch-toggle');
 
 themeRef.addEventListener('change', onThemeChange);
 
 function onThemeChange(e) {
-  document.body.classList.add(Theme.LIGHT);
   if (e.target.checked) {
-    document.body.classList.add(Theme.DARK);
-    document.body.classList.remove(Theme.LIGHT);
+    replaceTheme(Theme.LIGHT, Theme.DARK);
   } else {
-    document.body.classList.add(Theme.LIGHT);
-    document.body.classList.remove(Theme.DARK);
+    replaceTheme(Theme.DARK, Theme.LIGHT);
   }
   localStorage.setItem('theme', document.body.classList.value);
+}
+
+function replaceTheme(oldTheme, newTheme) {
+  document.body.classList.add(oldTheme);
+  document.body.classList.replace(oldTheme, newTheme);
+
+  // document.body.classList.add(oldTheme);
+  // themeRef.checked
+  //   ? document.body.classList.replace(oldTheme, newTheme)
+  //   : document.body.classList.replace(newTheme, oldTheme);
 }
 
 function savedTheme() {
@@ -34,9 +39,11 @@ function savedTheme() {
   if (savedTheme) {
     document.body.classList.value = savedTheme;
 
-    if (savedTheme === Theme.DARK) {
-      themeRef.checked = true;
-    }
+    // if (savedTheme === Theme.DARK) {
+    //   themeRef.checked = true;
+    // }
+
+    themeRef.checked = savedTheme === Theme.DARK;
   }
 }
 
