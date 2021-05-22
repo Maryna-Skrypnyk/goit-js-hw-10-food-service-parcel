@@ -17,18 +17,18 @@ const themeRef = document.querySelector('#theme-switch-toggle');
 
 themeRef.addEventListener('change', onThemeChange);
 
-function onThemeChange() {
-  replaceTheme(Theme.LIGHT, Theme.DARK);
-
-  localStorage.setItem(THEME_KEY, document.body.classList.value);
+function onThemeChange(e) {
+  if (e.target.checked) {
+    replaceTheme(Theme.LIGHT, Theme.DARK);
+  } else {
+    replaceTheme(Theme.DARK, Theme.LIGHT);
+  }
 }
 
 function replaceTheme(oldTheme, newTheme) {
-  document.body.classList.add(oldTheme);
+  document.body.classList.replace(oldTheme, newTheme);
 
-  themeRef.checked
-    ? document.body.classList.replace(oldTheme, newTheme)
-    : document.body.classList.replace(newTheme, oldTheme);
+  localStorage.setItem(THEME_KEY, newTheme);
 }
 
 function savedTheme() {
@@ -41,25 +41,9 @@ function savedTheme() {
     // if (savedTheme === Theme.DARK) {
     //   themeRef.checked = true;
     // }
+  } else {
+    document.body.classList = Theme.LIGHT;
   }
 }
 
 savedTheme();
-
-// -----------------------------------
-// Альтернативний запис функцій
-
-// function onThemeChange(e) {
-//   if (e.target.checked) {
-//     replaceTheme(Theme.LIGHT, Theme.DARK);
-//   } else {
-//     replaceTheme(Theme.DARK, Theme.LIGHT);
-//   }
-
-//   localStorage.setItem(THEME_KEY, document.body.classList.value);
-// }
-
-// function replaceTheme(oldTheme, newTheme) {
-//   document.body.classList.add(oldTheme);
-//   document.body.classList.replace(oldTheme, newTheme);
-// }
